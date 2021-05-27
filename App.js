@@ -1,31 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View,Button } from 'react-native';
-import Page from './views/Page';
+import {Text, View,Button } from 'react-native';
 import {css} from './assets/CSS/css';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import {Home,HomePaciente,Login} from './views'
+
 
 
 export default function App() {
-  const [nome,setNome]=useState('EX');
-  const [cpf,setCpf]=useState('cpf');
-  const props={
-    nome: 'alexandre',
-    cpf:'35265565895'
-  };
-  useEffect(()=>{
-    setNome('Novo nome');
-  });
-
+  
+  const Stack = createStackNavigator();
   return (
-    <View style={css.textPage}>
-      <Text>Oi!
+    <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+                  name="Home"
+                  component={Home}
+                  options={{
+                  title:"PSYCHOLINKER",
+                  headerStyle:{backgroundColor:"#fad0dd"},
+                  headerTintColor:'#ff6f9c',
+                  headerTitleStyle:{fontWeight:'bold', alignSelf:'center'}
+              }}
+          />
+          <Stack.Screen name="Login" options={{headerShown:false}} component={Login} />
+          <Stack.Screen name="HomePaciente" component={HomePaciente} />
+          {/*<Stack.Screen name="x" component={x} />*/}
 
-      </Text>
-      <Text>{nome}</Text>
-      <StatusBar style="auto" />
-      <Page{...props}/>
-    </View>
-  );
+        </Stack.Navigator>
+      </NavigationContainer>
+);
 }
 
 
